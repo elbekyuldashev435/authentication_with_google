@@ -1,0 +1,9 @@
+
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Bosh sahifa</h1><br>
+<h2>Salom {{ request.user.username }}</h2>
+<a href="{% url 'logout' %}"><h1>Tizimdan chiqish</h1></a>
+{% endblock content %}
