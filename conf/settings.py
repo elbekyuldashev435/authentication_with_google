@@ -40,8 +40,25 @@ INSTALLED_APPS = [
 
     # external
     "app_users",
-    "app_main"
+    "app_main",
+
+    # internal
+    "social_django"
 ]
+
+AUTHENTICATION_BACKENDS = (
+    "social_core.backends.google.GoogleOAuth2",
+    'django.contrib.auth.backends.ModelBackend'
+)
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "1080548657057-c76eajd5gb9p68r4475cpfeebhm4utlj.apps.googleusercontent.com"
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "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"
+
+LOGIN_URL = "login"
+LOGOUT_URL = "logout"
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = '/'
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = False
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -51,6 +68,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'social_django.middleware.SocialAuthExceptionMiddleware'
 ]
 
 ROOT_URLCONF = 'conf.urls'
@@ -66,10 +85,15 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
 ]
+
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 WSGI_APPLICATION = 'conf.wsgi.application'
 
